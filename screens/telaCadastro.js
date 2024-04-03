@@ -1,6 +1,8 @@
 
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import google from './src/img/logoGoogle.png';
+import facebook from './src/img/logoFacebook.png';
 import LinearGradient from 'react-native-web-linear-gradient';
 import { useFonts } from 'expo-font';
 
@@ -12,15 +14,18 @@ export default function App() {
   //Importador de fontes
   const [] = useFonts({ 'Raleway-VariableFont': require('./assets/fonts/Raleway-VariableFont_wght.ttf') });
 
+  
+  //vou usar email 
   const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-
   const [isEmptyLogin, setIsEmptyLogin] = useState(false);
+  const [isEmptyEmail, setIsEmptyEmail] = useState(false);
   const [isEmptySenha, setIsEmptySenha] = useState(false);
 
 
-
   function fnValidar() {
+    let sEmail = email;
     let sLogin = login;
     let sSenha = senha;
 
@@ -30,6 +35,11 @@ export default function App() {
       setIsEmptyLogin(false);
     }
 
+    if (sEmail == '') {
+      setIsEmptyEmail(true);
+    } else {
+      setIsEmptyEmail(false);
+    }
 
     if (sSenha == '') {
       setIsEmptySenha(true);
@@ -57,19 +67,12 @@ export default function App() {
 
             {/* botao login */}
             <TouchableOpacity
-
               style={estilos.botaoLogeCad1}>
-
-
               <Text style={estilos.textobotLeC}>
                 Login
               </Text>
-
             </TouchableOpacity>
-
-
-
-            {/* botaol cadastrar */}
+            {/* botao cadastrar */}
             <TouchableOpacity
               style={estilos.botaoLogeCad2}>
               <Text style={estilos.textobotLeC}>
@@ -79,18 +82,37 @@ export default function App() {
 
           </View>
 
-          {/* input  usuario */}
+
+          {/* input  email */}
           <Text style={estilos.texto}>
             Usuário:
           </Text>
           <TextInput
-            //Estou atribuindo a const login tudo que for digitado nesse input e a var setLogin recebe esse mesmo valor 
             value={login}
             onChangeText={(text) => setLogin(text)}
-            style={estilos.input} />
+            style={estilos.input} 
+            />
 
           <Text style={estilos.alerta}>
             {isEmptyLogin == true ? "Campo Vazio" : ""}
+          </Text>
+
+
+          {/* input email */}
+          <Text style={estilos.texto}>
+            Email:
+          </Text>
+
+          <TextInput
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+
+            style={estilos.input}
+            autoComplete='email'
+            keyboardType='email-address'
+          />
+          <Text style={estilos.alerta}>
+            {isEmptyEmail == true ? "Campo Vazio" : ""}
           </Text>
 
           {/* Campo senha */}
@@ -98,12 +120,12 @@ export default function App() {
             Senha:
           </Text>
 
-
-          <TextInput 
-          value={senha}
-          onChangeText={(text) => setSenha(text)}
-          style={estilos.input} 
-          secureTextEntry={true} 
+          <TextInput
+            value={senha}
+            onChangeText={(text) => setSenha(text)}
+            style={estilos.input}
+            secureTextEntry={true}
+            keyboardType="password"
           />
 
           <Text style={estilos.alerta}>
@@ -111,10 +133,32 @@ export default function App() {
           </Text>
 
 
+          {/* div dos botoes facebook e google */}
+          <View style={estilos.viewFaceeGm}>
+
+            {/* botao google */}
+            <TouchableOpacity
+              style={estilos.botaoFaceeGm}>
+              <Text style={estilos.imgtexto}>
+                <Image style={estilos.img} source={google} />
+              </Text>
+            </TouchableOpacity>
+
+            {/* botao facebook */}
+            <TouchableOpacity
+              style={estilos.botaoFaceeGm}>
+              <Text style={estilos.imgtexto}>
+                <Image style={estilos.img} source={facebook} />
+              </Text>
+            </TouchableOpacity>
+
+          </View>
+
           {/* botao entrar */}
-          <TouchableOpacity 
-          onPress={fnValidar}
-          style={estilos.button}>
+          <TouchableOpacity
+
+            onPress={fnValidar}
+            style={estilos.button}>
             <Text style={estilos.textobotao} >
               ENTRAR
             </Text>
@@ -162,7 +206,7 @@ const estilos = StyleSheet.create({
     shadowColor: 'black',
   },
 
-  //botao laranja entrar
+  //botao laranja cadastre-se
   button: {
 
     backgroundColor: "#FF3D00",
@@ -172,7 +216,7 @@ const estilos = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    marginTop: 170,
+
     shadowColor: 'rgba(0, 0, 0, 0.1)',
     shadowOpacity: 0.3,
     elevation: 6,
@@ -226,9 +270,8 @@ const estilos = StyleSheet.create({
     height: 50,
     width: '50%',
     alignContent: 'center',
-    borderBottomWidth: 6,
-    borderRightWidth: 6,
     borderColor: 'white',
+
   },
   //estilo botao cadastrar
   botaoLogeCad2: {
@@ -236,7 +279,9 @@ const estilos = StyleSheet.create({
     height: 52,
     width: '50%',
     alignContent: 'center',
-
+    borderBottomWidth: 6,
+    borderLeftWidth: 6,
+    borderColor: 'white',
 
   },
   //texto login e cadastrar
@@ -251,7 +296,43 @@ const estilos = StyleSheet.create({
     color: 'white',
 
   },
-  alerta:{
+
+  // div botoes facebook e gmail
+  viewFaceeGm: {
+    flexDirection: 'row',
+    height: '8%',
+    width: '100%',
+    alignContent: 'center',
+    alignItems: 'center',
+
+    paddingEnd: 49,
+    paddingStart: 49,
+  },
+  //config botao face e google
+  botaoFaceeGm: {
+    backgroundColor: 'tranparent',
+    height: 40,
+    width: '50%',
+    alignContent: 'center',
+    borderColor: 'white',
+
+  },
+  //config de img face e google
+  img: {
+    width: "35%",
+    height: "50%",
+    padding: 30,
+    resizeMode: 'stretch',
+
+  },
+  //tag de texto que esta por fora da img usei pra centralizar
+  imgtexto: {
+    alignContent: 'center',
+    textAlign: 'center',
+    height: 40,
+  },
+  alerta:
+  {
     fontFamily: 'Raleway-VariableFont',
     marginTop: -18,
     color: "white",
@@ -259,7 +340,6 @@ const estilos = StyleSheet.create({
     fontWeight: '600',
     
   },
-
 });
 
 
