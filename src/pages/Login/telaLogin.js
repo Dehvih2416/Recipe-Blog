@@ -35,6 +35,13 @@ export default function Login({navigation}) {
     } else {
       setIsEmptySenha(false);
     }
+
+    if(sSenha!=''&& sLogin!=''){
+      
+      navigation.navigate('Receitas')
+      console.log('entrou');
+      
+    }
   }
 
 
@@ -115,7 +122,9 @@ export default function Login({navigation}) {
 
           {/* botao entrar */}
           <TouchableOpacity 
-          onPress={fnValidar}
+          
+         onPress={fnValidar}
+         // onPress={(fnValidar) => navigation.navigate('Receitas')}
           style={estilos.button}>
             <Text style={estilos.textobotao} >
               ENTRAR
