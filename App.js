@@ -126,7 +126,7 @@ export default function App() {
     <NavigationContainer>
 
       {/* headerShown tira a barra de cima */}
-      <Stack.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false }} >
+      <Stack.Navigator initialRouteName="Receitas" screenOptions={{ headerShown: false }} >
 
         <Stack.Screen name="Inicio" component={Inicio} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
