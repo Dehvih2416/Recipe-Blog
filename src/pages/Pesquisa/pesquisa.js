@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import estilos from './style.js';
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,7 +20,7 @@ const App = () => {
     <View style={{ flex: 1, padding: 20 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <TextInput
-          style={{ flex: 1, height: 40, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 10 }}
+          style={{ flex: 1, height: 40, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 10,}}
           placeholder="Digite sua pesquisa"
           value={searchQuery}
           onChangeText={handleSearch}
